@@ -216,7 +216,6 @@ onUnmounted(() => {
   width: 2.5rem;
   height: 2.5rem;
   text-align: center;
-  cursor: pointer;
 }
 
 .icon-button > img {
@@ -268,6 +267,10 @@ onUnmounted(() => {
   align-items: center;
   width: 8rem;
   justify-content: space-evenly;
+}
+
+.previous-card__thumbs > .icon-button {
+  cursor: pointer;
 }
 
 .previous-card__vote-button {
