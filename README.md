@@ -1,29 +1,3 @@
-# zemoga-challenge
+# Rule of Thumb App
 
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your unit tests
-```
-npm run test:unit
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+This project implements a simple app that tracks the sentiment of their users on trending and controversial people from different fields, including politics, business, media and entertainment, etc.

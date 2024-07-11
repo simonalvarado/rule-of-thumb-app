@@ -1,26 +1,32 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Welcome to Your Vue.js App" />
+  <NavBar />
+  <MainHero />
+  <div class="max-centered">
+    <BannerTop />
+    <PreviousRulings />
+    <BannerBottom />
+    <hr role="separator" />
+    <MainFooter />
+  </div>
 </template>
 
-<script>
-import HelloWorld from "./components/HelloWorld.vue";
-
-export default {
-  name: "App",
-  components: {
-    HelloWorld,
-  },
-};
+<script setup>
+import NavBar from "./components/NavBar.vue";
+import MainHero from "./components/MainHero.vue";
+import BannerTop from "./components/BannerTop.vue";
+import PreviousRulings from "./components/PreviousRulings.vue";
+import BannerBottom from "./components/BannerBottom.vue";
+import MainFooter from "./components/MainFooter.vue";
 </script>
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  width: 100%;
+  margin: 0;
+  background-color: var(--color-white);
+  font-family: "Lato", sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  position: relative;
 }
 </style>
