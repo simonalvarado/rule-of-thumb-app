@@ -31,7 +31,11 @@
         </div>
         <div class="previous-card__vote-section">
           <p class="previous-card__last-updated">
-            {{ state.eyebrowText }}
+            {{
+              state.votingState === "initial"
+                ? lastUpdatedText
+                : "Thank you for voting!"
+            }}
           </p>
           <div class="previous-card__buttons">
             <div class="previous-card__thumbs">
@@ -60,7 +64,9 @@
                 :disabled="!state.isVoteButtonEnabled"
                 @click="vote"
               >
-                {{ state.voteButtonText }}
+                {{
+                  state.votingState === "initial" ? "Vote Now" : "Vote Again"
+                }}
               </button>
             </div>
           </div>
@@ -121,34 +127,34 @@ const lastUpdatedText = computed(() =>
 const state = reactive({
   selectedVote: null,
   isVoteButtonEnabled: false,
-  eyebrowText: lastUpdatedText.value,
-  voteButtonText: "Vote Now",
+  votingState: "initial",
 });
 const selectVote = (voteType) => {
   state.selectedVote = state.selectedVote === voteType ? null : voteType;
   state.isVoteButtonEnabled = state.selectedVote !== null;
 };
-const thumbButtonsDisabled = computed(
-  () => state.voteButtonText === "Vote Again"
-);
+const thumbButtonsDisabled = computed(() => state.votingState === "voted");
 const vote = () => {
-  if (state.voteButtonText === "Vote Now" && state.selectedVote) {
-    const voteType =
-      state.selectedVote === "thumbsUp" ? "positive" : "negative";
-    emit("vote-cast", { id: profile.id, voteType });
-    state.voteButtonText = "Vote Again";
-    state.eyebrowText = "Thank you for voting!";
-  } else {
+  if (state.votingState !== "initial" || !state.selectedVote) {
     resetVoting();
-    state.isVoteButtonEnabled = false;
+    return;
   }
-  state.selectedVote = null;
+  const voteType = state.selectedVote === "thumbsUp" ? "positive" : "negative";
+  emit("vote-cast", { id: profile.id, voteType });
+  updateVotingStateAfterVote();
 };
 const resetVoting = () => {
-  state.selectedVote = null;
-  state.isVoteButtonEnabled = false;
-  state.voteButtonText = "Vote Now";
-  state.eyebrowText = lastUpdatedText.value;
+  Object.assign(state, {
+    selectedVote: null,
+    isVoteButtonEnabled: false,
+    votingState: "initial",
+  });
+};
+const updateVotingStateAfterVote = () => {
+  Object.assign(state, {
+    selectedVote: null,
+    votingState: "voted",
+  });
 };
 
 // Computed properties for the gauge bar
